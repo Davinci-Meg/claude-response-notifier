@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Claude Response Notifier",
+  "version": "3.0.0",
+  "description": "Claudeからの回答が返ってきたらポップアップ通知でお知らせします。会話データには一切アクセスしません。",
+  "permissions": ["notifications", "webRequest"],
+  "host_permissions": ["https://claude.ai/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
