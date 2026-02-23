@@ -29,7 +29,7 @@
 
 1. **ダウンロード**
    - 緑色の **Code** ボタン → **Download ZIP** をクリック、または
-   - `git clone https://github.com/Davinci-Meg/ai-chat-response-notifier.git`
+   - `git clone https://github.com/Davinci-Meg/ai-response-notifier.git`
 2. 必要に応じてZIPファイルを解凍
 3. **Chrome** を開き、`chrome://extensions/` にアクセス
 4. 右上の **デベロッパーモード** を有効にする

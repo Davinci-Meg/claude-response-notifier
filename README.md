@@ -29,7 +29,7 @@ A Chrome extension that sends you a desktop notification when **Claude**, **Chat
 
 1. **Download** this repository
    - Click the green **Code** button → **Download ZIP**, or
-   - `git clone https://github.com/Davinci-Meg/ai-chat-response-notifier.git`
+   - `git clone https://github.com/Davinci-Meg/ai-response-notifier.git`
 2. Unzip the file if needed
 3. Open **Chrome** and go to `chrome://extensions/`
 4. Enable **Developer mode** (toggle in the top-right corner)
