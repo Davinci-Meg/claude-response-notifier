@@ -9,9 +9,9 @@
 
   if (Notification.permission === "default") {
     Notification.requestPermission().then((perm) => {
-      console.log(`[Claude Notifier] 通知権限: ${perm}`);
+      console.log(`[AI Notifier] 通知権限: ${perm}`);
     });
   }
 
-  console.log("[Claude Notifier] content.js loaded (ISOLATED world) ✅");
+  console.log("[AI Notifier] content.js loaded ✅");
 })();

@@ -1,6 +1,6 @@
-# 🔔 Claude Response Notifier
+# 🔔 AI Chat Response Notifier
 
-Claude (claude.ai) の応答生成が完了したときにデスクトップ通知を送るChrome拡張機能です。別のタブで作業中でも返信を見逃しません。
+**Claude**・**ChatGPT**・**Gemini** の応答生成が完了したときにデスクトップ通知を送るChrome拡張機能です。別のタブで作業中でも返信を見逃しません。
 
 ![Chrome](https://img.shields.io/badge/Chrome-拡張機能-blue?logo=googlechrome)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-green)
@@ -10,32 +10,39 @@ Claude (claude.ai) の応答生成が完了したときにデスクトップ通�
 
 ## ✨ 機能
 
-- **応答完了の自動検知** — `webRequest` APIを使用してClaudeの応答完了を検知
-- **スマート通知** — Claudeのタブが非アクティブのときだけ通知
-- **クリックでフォーカス** — 通知をクリックするとClaudeのタブに戻る
+- **マルチサービス対応** — Claude (claude.ai)、ChatGPT (chatgpt.com)、Gemini (gemini.google.com) に対応
+- **応答完了の自動検知** — `webRequest` APIを使用してAIの応答完了を検知
+- **スマート通知** — AIのタブが非アクティブのときだけ通知
+- **クリックでフォーカス** — 通知をクリックすると応答があったタブに戻る
 - **データアクセスなし** — 会話内容やリクエスト/レスポンスの中身は一切読み取りません
-- **最小限の権限** — `notifications`、`webRequest`、`claude.ai`への`host_permissions`のみ使用
+- **最小限の権限** — `notifications`、`webRequest`、対応サイトへの`host_permissions`のみ使用
+
+## 🤖 対応サービス
+
+| サービス | URL |
+|---|---|
+| Claude | https://claude.ai |
+| ChatGPT | https://chatgpt.com |
+| Gemini | https://gemini.google.com |
 
 ## 📦 インストール
 
-Chrome ウェブストアには公開していないため、手動でインストールしてください：
-
 1. **ダウンロード**
    - 緑色の **Code** ボタン → **Download ZIP** をクリック、または
-   - `git clone https://github.com/Davinci-Meg/claude-response-notifier.git`
+   - `git clone https://github.com/Davinci-Meg/ai-chat-response-notifier.git`
 2. 必要に応じてZIPファイルを解凍
 3. **Chrome** を開き、`chrome://extensions/` にアクセス
 4. 右上の **デベロッパーモード** を有効にする
 5. **パッケージ化されていない拡張機能を読み込む** をクリック
 6. `manifest.json` が含まれるフォルダを選択
-7. [claude.ai](https://claude.ai) を開き、プロンプトが表示されたら **通知を許可** する
+7. 対応するAIチャットサイトを開き、プロンプトが表示されたら **通知を許可** する
 
 ## 🚀 使い方
 
-1. [claude.ai](https://claude.ai) を開いてメッセージを送信
-2. Claudeが応答を生成している間に別のタブに切り替える
+1. 対応するAIチャットサイトを開いてメッセージを送信
+2. AIが応答を生成している間に別のタブに切り替える
 3. 応答が完了するとデスクトップ通知が表示される
-4. 通知をクリックするとClaudeのタブに戻る
+4. 通知をクリックすると該当タブに戻る
 
 ### Windows ユーザーへ
 
@@ -59,15 +66,15 @@ Chrome ウェブストアには公開していないため、手動でインス�
 | 権限 | 必要な理由 |
 |---|---|
 | `notifications` | デスクトップ通知を表示するため |
-| `webRequest` | ClaudeのAPIリクエスト完了を検知するため（URLパターンのみ） |
-| `host_permissions: claude.ai` | 対象をclaude.aiのみに制限するため |
+| `webRequest` | APIリクエストの完了を検知するため（URLパターンのみ） |
+| `host_permissions` | 対象を対応AIチャットサイトのみに制限するため |
 
 ## 🛠 仕組み
 
-1. `background.js` が `chrome.webRequest.onBeforeRequest` でClaudeの補完エンドポイントへのPOSTリクエストを検知
+1. `background.js` が `chrome.webRequest.onBeforeRequest` で各サービスのAPIエンドポイントへのPOSTリクエストを検知
 2. `chrome.webRequest.onCompleted` でリクエストの完了を検知
-3. `chrome.tabs` APIでClaudeのタブが現在アクティブかどうかを確認
-4. タブが非アクティブの場合、`chrome.notifications` でデスクトップ通知を表示
+3. `chrome.tabs` APIでリクエスト元のタブが現在アクティブかどうかを確認
+4. タブが非アクティブの場合、`chrome.notifications` でサービス名付きのデスクトップ通知を表示
 5. 1秒未満のリクエストは誤検知を避けるため無視
 
 ## 📄 ライセンス

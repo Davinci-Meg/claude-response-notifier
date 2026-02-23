@@ -1,6 +1,6 @@
-# 🔔 Claude Response Notifier
+# 🔔 AI Chat Response Notifier
 
-A Chrome extension that sends you a desktop notification when Claude (claude.ai) finishes generating a response — so you never miss a reply while working in another tab.
+A Chrome extension that sends you a desktop notification when **Claude**, **ChatGPT**, or **Gemini** finishes generating a response — so you never miss a reply while working in another tab.
 
 ![Chrome](https://img.shields.io/badge/Chrome-Extension-blue?logo=googlechrome)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-green)
@@ -10,32 +10,39 @@ A Chrome extension that sends you a desktop notification when Claude (claude.ai)
 
 ## ✨ Features
 
-- **Auto-detect completion** — Monitors when Claude finishes responding using the `webRequest` API
-- **Smart notifications** — Only notifies you when the Claude tab is *not* active
-- **Click to focus** — Click the notification to jump back to your Claude tab
+- **Multi-service support** — Works with Claude (claude.ai), ChatGPT (chatgpt.com), and Gemini (gemini.google.com)
+- **Auto-detect completion** — Monitors when AI finishes responding using the `webRequest` API
+- **Smart notifications** — Only notifies you when the AI tab is *not* active
+- **Click to focus** — Click the notification to jump back to the exact tab that received the response
 - **Zero data access** — Never reads your conversations or request/response content
-- **Minimal permissions** — Only uses `notifications`, `webRequest`, and `host_permissions` for `claude.ai`
+- **Minimal permissions** — Only uses `notifications`, `webRequest`, and host permissions for supported sites
+
+## 🤖 Supported Services
+
+| Service | URL |
+|---|---|
+| Claude | https://claude.ai |
+| ChatGPT | https://chatgpt.com |
+| Gemini | https://gemini.google.com |
 
 ## 📦 Installation
 
-Since this extension is not on the Chrome Web Store, you'll need to install it manually:
-
 1. **Download** this repository
    - Click the green **Code** button → **Download ZIP**, or
-   - `git clone https://github.com/Davinci-Meg/claude-response-notifier.git`
+   - `git clone https://github.com/Davinci-Meg/ai-chat-response-notifier.git`
 2. Unzip the file if needed
 3. Open **Chrome** and go to `chrome://extensions/`
 4. Enable **Developer mode** (toggle in the top-right corner)
 5. Click **Load unpacked**
 6. Select the folder containing `manifest.json`
-7. Open [claude.ai](https://claude.ai) and **allow notifications** when prompted
+7. Open any supported AI chat site and **allow notifications** when prompted
 
 ## 🚀 Usage
 
-1. Open [claude.ai](https://claude.ai) and send a message
-2. Switch to another tab while Claude is generating a response
+1. Open any supported AI chat site and send a message
+2. Switch to another tab while the AI is generating a response
 3. A desktop notification will appear when the response is ready
-4. Click the notification to jump back to Claude
+4. Click the notification to jump back to the correct tab
 
 ### Windows Users
 
@@ -51,7 +58,7 @@ If notifications appear in the Action Center but not as pop-up banners:
 This extension is designed with privacy as a core principle:
 
 - **No data collection** — Nothing is collected, stored, or transmitted
-- **No conversation access** — Your chats are never read; only URL patterns and request timing are monitored
+- **No conversation access** — Your chats are never read; only URL patterns and request timing are checked
 - **No external communication** — The extension never contacts any external server
 - **Minimal permissions** — Only the permissions strictly necessary for functionality
 - **Open source** — All code is publicly auditable
@@ -59,15 +66,15 @@ This extension is designed with privacy as a core principle:
 | Permission | Why it's needed |
 |---|---|
 | `notifications` | To show desktop notifications |
-| `webRequest` | To detect when Claude's API request completes (URL pattern only) |
-| `host_permissions: claude.ai` | To restrict monitoring to claude.ai only |
+| `webRequest` | To detect when API requests complete (URL pattern only) |
+| `host_permissions` | To restrict access to supported AI chat sites only |
 
 ## 🛠 How It Works
 
-1. `background.js` uses `chrome.webRequest.onBeforeRequest` to detect POST requests to Claude's completion endpoint
+1. `background.js` uses `chrome.webRequest.onBeforeRequest` to detect POST requests to each service's API endpoint
 2. `chrome.webRequest.onCompleted` detects when the request finishes
-3. `chrome.tabs` API checks if the Claude tab is currently active
-4. If the tab is not active, `chrome.notifications` displays a desktop notification
+3. `chrome.tabs` API checks if the originating tab is currently active
+4. If the tab is not active, `chrome.notifications` displays a desktop notification with the service name
 5. Requests shorter than 1 second are ignored to avoid false positives
 
 ## 📄 License
